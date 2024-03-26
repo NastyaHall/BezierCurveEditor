@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap" rel="stylesheet">
+    <title>Bézier</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="overlayMask"></div>
+    <div class="sidebar"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-share" viewBox="0 0 16 16">
+                        <path
+                            d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3" />
+                    </svg>
+                <h1>Bézier Curve Editor</h1>
+                <h2 class="subheader">Add and drag points</h2>
+                <span class="help">Help ?</span>
+            </div>
+        </div>
+        <div class="content">
+            <div class="canvasWrap">
+                <canvas id="canvas" width="1000" height="500"></canvas>
+            </div>
+            
+            <div id="inputArea" class="inputArea">
+                <div class="easing">
+                    <div class="row">
+                        Formula:
+                        <select id="formulaSelect">
+                            <option value="parametric">parametric</option>
+                            <option value="matrix">matrix</option>
+                        </select>
+                        <div class="colorInput">
+                            Curve Color: 
+                            <input type="color" name="" id="colorInput">
+                        </div>
+                        
+                    </div>
+                    <div class="fileMessage">Data was written to the files =>
+                        <a href="file.txt" target="_blank">file.txt</a>
+                        <a href="file.json" target="_blank">file.json</a>
+                    </div>
+                </div>
+                <div class="inputItem tInfoInput">
+                    <hr class="separator">
+                    <label>t1: </label><input id="tInput" type="number" value="0.3" min="0" max="1"  step="0.1" >
+                    <label>t2: </label><input id="tInput2" type="number" value="0.7" min="0" max="1"  step="0.1" >
+                    <label>Step:</label><input id="stepInput" type="number" value="0.1" step="0.01" min="0.01" max="1">
+                    
+                    <div class="pointsList">                    
+                        <label>Curve tabulation on [t1 : t2]:</label>
+                        <textarea id="pointsListTextArea"></textarea>
+                    </div>
+                    <hr class="separator">
+                </div>
+                <div id="draggables">
+                    <div class="inputItem inputCoord draggable"><span>0</span><label>X</label><input class="inputX"
+                            type="text" value="11"><label>Y</label><input class="inputY" type="text" value="11">
+                            <button class="addUp"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-top" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
+                                <path d="M12 9v-4" />
+                                <line x1="10" y1="7" x2="14" y2="7" />
+                              </svg></button>
+                            <button class="addDown"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-bottom" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z" />
+                                <line x1="12" y1="15" x2="12" y2="19" />
+                                <line x1="14" y1="17" x2="10" y2="17" />
+                              </svg></button>
+                            <div class="delete"></div>
+                    </div>
+                    <div class="inputItem inputCoord draggable"><span>1</span><label>X</label><input class="inputX"
+                            type="text" value="15"><label>Y</label><input class="inputY" type="text" value="0">
+                            <button class="addUp"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-top" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
+                                <path d="M12 9v-4" />
+                                <line x1="10" y1="7" x2="14" y2="7" />
+                              </svg></button>
+                            <button class="addDown"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-bottom" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z" />
+                                <line x1="12" y1="15" x2="12" y2="19" />
+                                <line x1="14" y1="17" x2="10" y2="17" />
+                              </svg></button>
+                            <div class="delete"></div>
+                    </div>
+                    <div class="inputItem inputCoord draggable"><span>2</span><label>X</label><input class="inputX"
+                            type="text" value="0"><label>Y</label><input class="inputY" type="text" value="-7">
+                            <button class="addUp"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-top" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
+                                <path d="M12 9v-4" />
+                                <line x1="10" y1="7" x2="14" y2="7" />
+                              </svg></button>
+                            <button class="addDown"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-bottom" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z" />
+                                <line x1="12" y1="15" x2="12" y2="19" />
+                                <line x1="14" y1="17" x2="10" y2="17" />
+                              </svg></button>
+                            <div class="delete"></div>
+                    </div>
+                    <div class="inputItem inputCoord draggable"><span>3</span><label>X</label><input class="inputX"
+                            type="text" value="-5"><label>Y</label><input class="inputY" type="text" value="0">
+                            <button class="addUp"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-top" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
+                                <path d="M12 9v-4" />
+                                <line x1="10" y1="7" x2="14" y2="7" />
+                              </svg></button>
+                            <button class="addDown"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-bottom" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z" />
+                                <line x1="12" y1="15" x2="12" y2="19" />
+                                <line x1="14" y1="17" x2="10" y2="17" />
+                              </svg></button>
+                            <div class="delete"></div>
+                    </div>
+                    <div class="inputItem inputCoord draggable"><span>4</span><label>X</label><input class="inputX"
+                            type="text" value="-10"><label>Y</label><input class="inputY" type="text" value="10">
+                            <button class="addUp"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-top" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
+                                <path d="M12 9v-4" />
+                                <line x1="10" y1="7" x2="14" y2="7" />
+                              </svg></button>
+                            <button class="addDown"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-bottom" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z" />
+                                <line x1="12" y1="15" x2="12" y2="19" />
+                                <line x1="14" y1="17" x2="10" y2="17" />
+                              </svg></button>
+                        <div class="delete"></div>
+                    </div>
+                    <div class="inputItem inputCoord draggable"><span>5</span><label>X</label><input class="inputX"
+                            type="text" value="0"><label>Y</label><input class="inputY" type="text" value="15">
+                            <button class="addUp"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-top" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 18v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
+                                <path d="M12 9v-4" />
+                                <line x1="10" y1="7" x2="14" y2="7" />
+                              </svg></button>
+                            <button class="addDown"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-row-insert-bottom" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 6v4a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1z" />
+                                <line x1="12" y1="15" x2="12" y2="19" />
+                                <line x1="14" y1="17" x2="10" y2="17" />
+                              </svg></button>
+                            <div class="delete"></div>
+                    </div>
+                </div>
+                
+                <button id="add" class="add">Add</button>
+                <div class="btnRow tooltip">
+                    <span class="tooltiptext">Maximum amount of points for matrix method is 30, for parametric 170</span>
+                    <button id="generate" class="generate">Generate</button>
+                    <input type="number" name="" id="generatePointsAmount" value="170" min="3" max="170">
+                    <span class="pointslabel">points</span>
+                </div>
+                <button id="replayBtn" class="replayBtn">Clear</button>
+                
+            </div>
+
+        </div>
+        <div class="overlayContent guide guide01">
+            <div class="msgBox">
+                <p>drag the control points(dots) to change the curve.</p>
+                <p class="next">next</p>
+                <p class="step">1/2</p>
+            </div>
+        </div>
+        <div class="overlayContent guide guide02">
+            <div class="msgBox">
+                <p>specify t1,t2,step to tabulate curve, add new points and edit them
+                </p>
+                <p class="next closeOverlay">next</p>
+                <p class="step">2/2</p>
+            </div>
+        </div>
+        <div class="overlayContent warning">
+            <div class="warningContent">
+                <h2 id="waringHeader">The amount of points exceeds acceptable amount for matrix method (30).</h2>
+                <hr>
+                <p id="warningText"></p>
+                <hr>
+                <div class="btnRow">
+                    <button id="cancelRemovalBtn">Cancel</button>
+                    <button id="removePointsBtn">Remove</button>
+                </div>
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </div>
+</body>
+
+</html>

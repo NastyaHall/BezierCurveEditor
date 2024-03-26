@@ -1,0 +1,627 @@
+@charset 'utf-8';
+
+/* base */
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 15px;
+}
+body {
+	min-width: 980px;
+	margin: 0 auto;
+}
+.header {
+	margin-bottom: 10px;
+	background: rgb(41, 42, 47);
+    font-family: 'League Spartan';
+	/* font-family: "M PLUS Code Latin", monospace; */
+}
+.header-inner {
+	padding: 15px 30px;
+	margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+.header-inner h1 {
+	color: #fff;
+    font-size: 35px;
+}
+.bi-share {
+    margin-bottom: 4px;
+    margin-right: 15px;
+    color: white;
+}
+.help {
+	cursor: pointer;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background: #e40056;
+	display: block;
+	width: 70px;
+	height: 30px;
+	text-align: center;
+	border-radius: 5px;
+	line-height: 30px;
+	color: #fff;
+}
+.help:hover {
+	opacity: 0.9;
+}
+.content {
+	margin: 0 auto;
+	padding-bottom: 10px;
+}
+.content:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+/* canvasエリア */
+.canvasWrap {
+	position: relative;
+	float: left;
+	display: inline-block;
+	min-height: 512px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+canvas {
+	display: block;
+	vertical-align: bottom;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+}
+/* 入力エリア */
+button {
+	display: block;
+	margin: 5px;
+	padding: 5px;
+	font-size: 14px;
+}
+input {
+	margin-right: 10px;
+}
+select {
+	 font-size: 17px;
+}
+.easing {
+	margin-left: 8px;
+	font-family: 'League Spartan';
+	font-size: 17px;
+	margin-bottom: 15px !important;
+	/* display: flex;
+	align-items: center; */
+}
+.row{
+	display: flex;
+	align-items: center;
+}
+.easing select{
+	font-size: 13px;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.fadeInAnimation {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.fileMessage{
+	margin-top: 7px;
+	background-color: rgb(90, 95, 122);
+	border-radius: 2px;
+	padding: 5px;
+	display: none;
+	justify-content: space-between;
+	
+}
+/*============= tooltip */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+  }
+  .subheader{
+	margin-left: 15px;
+	margin-top: 10px;
+  }
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 220px;
+	background-color: #cbcbd7;
+	color: #171239;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 50%;
+	margin-left: -60px;
+	opacity: 0;
+	transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #cbcbd7 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+  }
+/*===============*/
+.colorInput{
+	display: flex;
+	align-items: center;
+	margin-left: 20px
+}
+.colorInput input{
+	margin-left: 10px;
+}
+.fileMessage a{
+	color: #02113a;
+}
+div, h1, h2{
+	color: white;
+}
+.sidebar{
+	position: absolute;
+	width: 425px;
+	height: 1060vh;
+	background-color: rgb(21, 23, 36);
+	z-index: -1;
+	left: 1015px;
+}
+
+input, select, textarea{
+	border: none;
+	padding: 2px;
+	border-radius: 3px;
+	font-family: "M PLUS Code Latin", monospace;
+	background: rgb(64, 70, 100);
+	color: white;
+}
+.inputArea {
+	width: 350px;
+	overflow: hidden;
+	margin: 10px 5px 20px;
+	padding-left: 5px;
+}
+.inputArea input {
+	width: 50px;
+}
+.inputArea label {
+	padding-right: 5px;
+}
+.inputArea > div {
+	margin: 8px 0;
+}
+.inputArea > .replayBtn,
+.inputArea > .easing,
+.inputArea > .inputItem {
+	margin-left: 8px;
+}
+.tInfoInput{
+	font-family: 'League Spartan';
+	font-size: 17px;
+	margin-bottom: 15px !important;
+}
+.inputArea > .replayBtn {
+	margin-top: 0;
+}
+.inputCoord {
+	position: relative;
+	width: 270px;
+	margin: 8px;
+	padding: 6px;
+	background: rgb(29, 34, 53);
+	/* border: 1px solid #ccc; */
+	border-radius: 5px;
+}
+
+.inputCoord.over {
+	border: 1px dashed #666;
+}
+.inputCoord .delete {
+	cursor: pointer;
+	position: absolute;
+	top: 3px;
+	right: -38px;
+	content: '';
+	display: block;
+	width: 26px;
+	height: 26px;
+	border: 2px solid #d80820;
+}
+.inputCoord .delete:hover {
+	opacity: 0.8;
+}
+.inputCoord .delete:after {
+	font-size: 18px;
+	content: '';
+	display: block;
+	position: absolute;
+	border-top: 2px solid #d80820;
+	width: 12px;
+	top: 12px;
+	left: 7px;
+	text-align: center;
+	
+}
+.inputCoord span {
+	display: inline-block;
+	border-radius: 50%;
+	padding: 0 6px;
+	background: #666;
+	color: #fff;
+	margin-right: 5px;
+    
+}
+.inputCoord label{
+    font-family: 'League Spartan';
+}
+.inputArea .add + p {
+	margin-top: 15px;
+}
+.inputArea p {
+	margin: 0 5px 3px;
+	font-size: 12px;
+}
+.urlInput {
+	display: block;
+	border: 1px solid #ccc;
+	width: 500px;
+	height: 20px;
+	padding: 4px;
+}
+.draggable {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	-khtml-user-drag: element;
+	-webkit-user-drag: element;
+}
+.add {
+	position: relative;
+	margin: 0 0 0 8px !important;
+	padding: 8px;
+	background: rgb(33, 78, 147);
+	color: #ffffff;
+    /* border: 1.5px solid #d4d4d4; */
+	cursor: pointer;
+    border-radius: 4px;
+    font-family: 'League Spartan';
+    width: 80%;
+	border: none;
+	text-align: left;
+}
+.add:hover {
+	opacity: 0.8;
+}
+.add.disabled{
+	opacity: 0.8;
+}
+
+.add:after {
+	content: '+';
+	color: #ffffff;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	display: block;
+	width: 15px;
+	height: 15px;
+	text-align: center;
+	line-height: 19px;
+	border: 1px solid #ffffff;
+	border-radius: 50%;
+}
+.btnRow{
+	display: flex;
+	align-items: center;
+}
+.btnRow input{
+	height: 25px
+}
+
+.generate {
+	position: relative;
+	margin: 0 4px 0 8px !important;
+	padding: 8px;
+	background-color: #e08712;
+	color: #ffffff;
+	cursor: pointer;
+    border-radius: 4px;
+    font-family: 'League Spartan';
+    width: 80%;
+	border: none;
+	text-align: left;
+}
+.generate:hover {
+	opacity: 0.8;
+}
+.generate.disabled{
+	opacity: 0.8;
+}
+
+.generate:after {
+	content: '🌀';
+	color: #ffffff;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	display: block;
+	width: 15px;
+}
+#generatePointsAmount{
+	width: 40px;
+}
+/*-------------------------------*/
+/* 出力エリア */
+.outputArea {
+	width: 812px;
+	float: none;
+	clear: both;
+	margin: 8px 10px;
+}
+.outputArea textarea {
+	width: 800px;
+	padding: 10px;
+	margin-bottom: 5px;
+	height: 200px;
+	background: #fbfbfb;
+	border: 1px solid #ccc;
+}
+.outputBtn {
+	position: relative;
+	width: 120px;
+	display: inline-block;
+	padding: 8px;
+	color: #fff;
+	background: #042d4c;
+	font-size: 13px;
+	margin-top: 15px;
+	cursor: pointer;
+}
+.outputBtn:hover {
+	opacity: 0.8;
+}
+.outputBtn:after {
+	font-size: 10px;
+	text-align: center;
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	content: '↓';
+	display: block;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+}
+.outputArea p {
+	margin-top: 2px;
+	font-size: 13px;
+}
+.tabarea {
+	position: relative;
+}
+.tab {
+	position: absolute;
+	top: 0;
+	right: 0;
+	letter-spacing: -0.4em;
+}
+.tab span {
+	cursor: pointer;
+	letter-spacing: normal;
+	display: inline-block;
+	background: #ccc;
+	color: #666;
+	padding: 3px 10px;
+}
+.tab .current {
+	background: #666;
+	color: #fff;
+}
+.tabContent textarea {
+	display: none;
+}
+.tabContent .current {
+	display: block;
+}
+/* overlay */
+#overlayMask {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 10;
+	display: none;
+}
+
+#overlayMask.is-show {
+	display: block;
+}
+.overlayContent {
+	display: none;
+	z-index: 11;
+	position: absolute;
+}
+.overlayContent.is-show {
+	display: block;
+}
+.msgBox {
+	border: 3px solid #0081e4;
+	width: 300px;
+	background: rgba(255,255,255, 0.8);
+	padding: 10px 10px 40px;
+	color: #02113a;
+	font-family: 'League Spartan';
+}
+.pointslabel{
+	font-family: 'League Spartan';
+}
+.warning{
+	background-color: white;
+	padding: 20px;
+	max-width: 350px;
+	text-align: center;
+	border-radius: 5px;
+	font-family: 'League Spartan';
+	line-height: 20px;
+	font-size: 20px;
+	color: #02113a;
+}
+.warning h2{
+	font-size: 25px;
+	line-height: 30px;
+	color: #02113a;
+}
+#warningText{
+	color: #02113a;
+}
+.warning hr{
+	margin: 10px;
+}
+.warning .btnRow{
+	display: flex;
+	justify-content: flex-end;
+	
+}
+.warning button{
+	padding: 8px;
+}
+.pointsList{
+	margin: 20px 0;
+	display: block;
+	/* align-items: flex-start; */
+}
+.pointsList textarea{
+	margin-top: 10px;
+	min-width: 300px;
+	max-width: 300px;
+	min-height: 67px;
+	font-size: 10px;
+	padding: 10px;
+	line-height: 17px;
+}
+.separator{
+	margin: 13px 0;
+	border-top: 1px solid rgb(49, 55, 81);
+}
+#removePointsBtn{
+	background-color: #e40056;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.msgBox .next {
+	background: #042d4c;
+	color: #fff;
+	padding: 5px 8px;
+	cursor: pointer;
+	display: inline-block;
+	line-height: 1.2;
+	font-size: 13px;
+	position: absolute;
+	bottom: 10px;
+	left: 12px;
+}
+.msgBox .step {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	padding: 5px;
+	line-height: 1.2;
+	font-size: 13px;
+}
+
+.replayBtn {
+	position: relative;
+	margin: 0 4px 0 8px !important;
+	padding: 8px;
+	background-color: #e95f4c;
+	color: #ffffff;
+    /* border: 1.5px solid #d4d4d4; */
+	width: 60px;
+	cursor: pointer;
+    border-radius: 4px;
+    font-family: 'League Spartan';
+    width: 80%;
+	border: none;
+	text-align: left;
+}
+.replayBtn:hover {
+	opacity: 0.8;
+}
+.replayBtn.disabled{
+	opacity: 0.8;
+}
+
+.replayBtn:after {
+	content: '🗑';
+	color: #ffffff;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	display: block;
+	width: 15px;
+}
+/*-f-f-f-f--f-f*/
+.addUp{
+	color: #bbbbbb;
+	cursor: pointer;
+	position: absolute;
+	top: -3px;
+	right: 30px;
+	content: '';
+	display: block;
+	width: 40px;
+	height: 26px;
+	background-color: none;
+	border: none;
+	background: none;
+}
+.addDown{
+	color: #bbbbbb;
+	cursor: pointer;
+	position: absolute;
+	top: -3px;
+	right: -10px;
+	content: '';
+	display: block;
+	width: 40px;
+	height: 26px;
+	background-color: none;
+	border: none;
+	background: none;
+}
+.replayBtn:hover {
+	opacity: 0.8;
+}
+
+
+.footer {
+	padding: 10px 0;
+	text-align: center;
+	border-top: 1px solid #eee;
+	font-size: 12px;
+	color: #666;
+}
